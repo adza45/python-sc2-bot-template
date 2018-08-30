@@ -1,3 +1,11 @@
+train_data
+train_data_extra
+train_data_model_1
+BasicCNN-30-epochs-0.0001-LR-STAGE1
+test.SC2Replay
+test.py
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
