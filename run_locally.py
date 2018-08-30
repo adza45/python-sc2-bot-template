@@ -1,4 +1,8 @@
+#!/usr/bin/env python3
 import json
+import sys
+
+print("The Python version is {}".format( sys.version_info[:3]))
 
 from sc2 import run_game, maps, Race, Difficulty
 from sc2.player import Bot, Computer
@@ -12,9 +16,9 @@ def main():
     race = Race[info["race"]]
 
     run_game(maps.get("Abyssal Reef LE"), [
-        Bot(race, MyBot()),
-        Computer(Race.Random, Difficulty.Medium)
-    ], realtime=False, step_time_limit=2.0, game_time_limit=(60*20), save_replay_as="test.SC2Replay")
+        Bot(race, MyBot(use_model=False)),
+        Computer(Race.Zerg, Difficulty.Medium)
+    ], realtime=False, game_time_limit=(60*45), save_replay_as="test.SC2Replay")
 
 if __name__ == '__main__':
     main()
