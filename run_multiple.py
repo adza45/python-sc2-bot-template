@@ -39,7 +39,7 @@ start_time = datetime.datetime.now()
 
 print("Start Time: {}".format(start_time))
 
-end_time = start_time + datetime.timedelta(hours=2)
+end_time = start_time + datetime.timedelta(hours=6)
 print("Stop running at time: {}".format(end_time))
 
 #subprocess.call("alias python3='/usr/bin/python3.6", shell=True)
@@ -49,8 +49,11 @@ popenAndCall([exit_func, 0], [sys.executable + " run_locally.py"])
 popenAndCall([exit_func, 0], [sys.executable + " run_locally.py"])
 popenAndCall([exit_func, 0], [sys.executable + " run_locally.py"])
 popenAndCall([exit_func, 0], [sys.executable + " run_locally.py"])
-popenAndCall([exit_func, 0], [sys.executable + " run_locally.py"])
-popenAndCall([exit_func, 0], [sys.executable + " run_locally.py"])
+# popenAndCall([exit_func, 0], [sys.executable + " run_locally.py"])
+# popenAndCall([exit_func, 0], [sys.executable + " run_locally.py"])
+
+
+
 #popenAndCall([exit_func, 0], [sys.executable + " run_locally.py"])
 #popenAndCall([exit_func, 0], ["python3 run_locally.py"])
 # test2 = popenAndCall(exit_func, ["python app.py"])

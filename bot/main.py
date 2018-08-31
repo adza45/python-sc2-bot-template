@@ -12,13 +12,15 @@ import numpy as np
 from sc2.ids.ability_id import AbilityId
 from sc2 import unit as unit_module
 import time
-import keras
+#import keras
 import math
 
 #test
-HEADLESS = False
+HEADLESS = True
 
-os.environ["SC2PATH"] = 'G:/Games/Battlenet/StarCraft II'
+#os.environ["SC2PATH"] = 'G:/Games/Battlenet/StarCraft II'
+os.environ["SC2PATH"] = '/home/adam/Projects/StarcraftII/sc2-bot-match-runner/StarCraftII'
+
 
 class MyBot(sc2.BotAI):
 	def __init__(self, use_model=False):
@@ -395,7 +397,7 @@ class MyBot(sc2.BotAI):
 		self.do_something_after = self.iteration + wait
 
 	async def defend_command_center(self):
-		aggressive_units= [MARINE, SIEGETANK, SIEGETANKSIEGED]
+		aggressive_units= [MARINE, SIEGETANK]
 		if len(self.known_enemy_units) > 0 and len(self.units(COMMANDCENTER)) > 0:
 			target = self.known_enemy_units.closest_to(random.choice(self.units(COMMANDCENTER))).position
 			for UNIT in aggressive_units:
@@ -407,7 +409,7 @@ class MyBot(sc2.BotAI):
 					await self.do(medivac.move(self.units(MARINE).ready.random))
 
 	async def attack_known_enemy_structure(self):
-		aggressive_units= [MARINE, SIEGETANK, SIEGETANKSIEGED]
+		aggressive_units= [MARINE, SIEGETANK]
 		if len(self.known_enemy_structures) > 0:
 			target = random.choice(self.known_enemy_structures)
 			for UNIT in aggressive_units:
@@ -419,7 +421,7 @@ class MyBot(sc2.BotAI):
 					await self.do(medivac.move(self.units(MARINE).ready.random))
 
 	async def attack_known_enemy_unit(self):
-		aggressive_units= [MARINE, SIEGETANK, SIEGETANKSIEGED]
+		aggressive_units= [MARINE, SIEGETANK]
 		if len(self.known_enemy_units) > 0 and len(self.units(COMMANDCENTER)) > 0:
 			target = self.known_enemy_units.closest_to(random.choice(self.units(COMMANDCENTER))).position
 			for UNIT in aggressive_units:
@@ -432,7 +434,7 @@ class MyBot(sc2.BotAI):
 
 	async def enter_siege_mode(self, siege_tank):
 		if self.can_afford(SIEGEMODE_SIEGEMODE):
-			print("Can afford siege {}".format(siege_tank.tag))
+			#print("Can afford siege {}".format(siege_tank.tag))
 			await self.do(siege_tank.__call__(SIEGEMODE_SIEGEMODE))
 
 	async def exit_siege_mode(self, siege_tank_sieged):
@@ -500,10 +502,10 @@ class MyBot(sc2.BotAI):
 					if choice <= 3:
 						await self.choices[choice]()
 					elif choice > 3 and choice <= 11:
-						if (choice - 4) <= len(self.units(SIEGETANK)):
+						if (choice - 4) < len(self.units(SIEGETANK)):
 							await self.enter_siege_mode(self.units(SIEGETANK)[choice - 4])
 					elif choice > 11 and choice < 20:
-						if (choice - 12) <= len(self.units(SIEGETANKSIEGED)):
+						if (choice - 12) < len(self.units(SIEGETANKSIEGED)):
 							await self.exit_siege_mode(self.units(SIEGETANKSIEGED)[choice - 12])
 
 				except Exception as e:
@@ -512,5 +514,5 @@ class MyBot(sc2.BotAI):
 
 				y = np.zeros(20)
 				y[choice] = 1
-				print(y)
+				#print(y)
 				self.train_data.append([y,self.flipped])

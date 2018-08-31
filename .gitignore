@@ -4,6 +4,9 @@ train_data_model_1
 BasicCNN-30-epochs-0.0001-LR-STAGE1
 test.SC2Replay
 test.py
+train_data_victory
+train_data_tie
+train_data_defeat
 
 
 # Byte-compiled / optimized / DLL files
