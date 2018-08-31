@@ -113,9 +113,6 @@ class MyBot(sc2.BotAI):
 			await self.do(scout.move(move_to))
 
 	async def intel(self):
-		for marine in self.units(MARINE):
-			print("Marine Orders: {}".format(marine.orders))
-
 		game_data = np.zeros((self.game_info.map_size[1], self.game_info.map_size[0], 3), np.uint8)
 
 		# draw_dict = {
