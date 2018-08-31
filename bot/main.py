@@ -113,6 +113,9 @@ class MyBot(sc2.BotAI):
 			await self.do(scout.move(move_to))
 
 	async def intel(self):
+		for marine in self.units(MARINE):
+			print("Marine Orders: {}".format(marine.orders))
+
 		game_data = np.zeros((self.game_info.map_size[1], self.game_info.map_size[0], 3), np.uint8)
 
 		# draw_dict = {
@@ -397,7 +400,7 @@ class MyBot(sc2.BotAI):
 	async def defend_command_center(self):
 		aggressive_units= [MARINE, SIEGETANK, SIEGETANKSIEGED]
 		if len(self.known_enemy_units) > 0 and len(self.units(COMMANDCENTER)) > 0:
-			target = self.known_enemy_units.closest_to(random.choice(self.units(COMMANDCENTER)))
+			target = self.known_enemy_units.closest_to(random.choice(self.units(COMMANDCENTER))).position
 			for UNIT in aggressive_units:
 				for unit in self.units(UNIT).idle:
 					await self.do(unit.attack(target))
@@ -421,7 +424,7 @@ class MyBot(sc2.BotAI):
 	async def attack_known_enemy_unit(self):
 		aggressive_units= [MARINE, SIEGETANK, SIEGETANKSIEGED]
 		if len(self.known_enemy_units) > 0 and len(self.units(COMMANDCENTER)) > 0:
-			target = self.known_enemy_units.closest_to(random.choice(self.units(COMMANDCENTER)))
+			target = self.known_enemy_units.closest_to(random.choice(self.units(COMMANDCENTER))).position
 			for UNIT in aggressive_units:
 				for unit in self.units(UNIT).idle:
 					await self.do(unit.attack(target))
